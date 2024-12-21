@@ -1,0 +1,269 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+#define MAX_SIZE 100
+#define PI 3.14159265359
+
+// Struct for complex number operations
+typedef struct {
+    float real;
+    float imag;
+} Complex;
+
+// Function to add two complex numbers
+Complex addComplex(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real + b.real;
+    result.imag = a.imag + b.imag;
+    return result;
+}
+
+// Function to subtract two complex numbers
+Complex subtractComplex(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real - b.real;
+    result.imag = a.imag - b.imag;
+    return result;
+}
+
+// Function to multiply two complex numbers
+Complex multiplyComplex(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real * b.real - a.imag * b.imag;
+    result.imag = a.real * b.imag + a.imag * b.real;
+    return result;
+}
+
+// Function to divide two complex numbers
+Complex divideComplex(Complex a, Complex b) {
+    Complex result;
+    float denominator = b.real * b.real + b.imag * b.imag;
+    result.real = (a.real * b.real + a.imag * b.imag) / denominator;
+    result.imag = (a.imag * b.real - a.real * b.imag) / denominator;
+    return result;
+}
+
+// Function to print a complex number
+void printComplex(Complex c) {
+    if (c.imag < 0)
+        printf("%.2f - %.2fi\n", c.real, -c.imag);
+    else
+        printf("%.2f + %.2fi\n", c.real, c.imag);
+}
+
+// Struct for representing a point
+typedef struct {
+    float x;
+    float y;
+} Point;
+
+// Function to calculate the distance between two points
+float distance(Point p1, Point p2) {
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+}
+
+// Function to calculate the midpoint of two points
+Point midpoint(Point p1, Point p2) {
+    Point mid;
+    mid.x = (p1.x + p2.x) / 2;
+    mid.y = (p1.y + p2.y) / 2;
+    return mid;
+}
+
+// Function to calculate the area of a triangle using 3 points
+float areaOfTriangle(Point p1, Point p2, Point p3) {
+    return fabs(p1.x*(p2.y - p3.y) + p2.x*(p3.y - p1.y) + p3.x*(p1.y - p2.y)) / 2;
+}
+
+// Function to swap two integers
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to reverse an array
+void reverseArray(int arr[], int size) {
+    int start = 0, end = size - 1;
+    while (start < end) {
+        swap(&arr[start], &arr[end]);
+        start++;
+        end--;
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+// Function to calculate the factorial of a number
+long long factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+
+// Function to check if a number is prime
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return 0;
+    }
+    return 1;
+}
+
+// Function to generate Fibonacci sequence up to n terms
+void fibonacci(int n) {
+    int a = 0, b = 1, c;
+    if (n >= 1) printf("%d ", a);
+    if (n >= 2) printf("%d ", b);
+    for (int i = 3; i <= n; i++) {
+        c = a + b;
+        printf("%d ", c);
+        a = b;
+        b = c;
+    }
+    printf("\n");
+}
+
+// Function to calculate the sum of digits of a number
+int sumOfDigits(int n) {
+    int sum = 0;
+    while (n != 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}
+
+// Function to convert decimal to binary
+void decimalToBinary(int n) {
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+    int binary[32], i = 0;
+    while (n > 0) {
+        binary[i] = n % 2;
+        n /= 2;
+        i++;
+    }
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", binary[j]);
+    }
+    printf("\n");
+}
+
+// Function to calculate the power of a number
+double power(double base, int exp) {
+    return pow(base, exp);
+}
+
+// Struct for a simple student record
+typedef struct {
+    char name[50];
+    int age;
+    float grade;
+} Student;
+
+// Function to print student details
+void printStudent(Student s) {
+    printf("Name: %s\n", s.name);
+    printf("Age: %d\n", s.age);
+    printf("Grade: %.2f\n", s.grade);
+}
+
+// Function to compare two students based on their grades
+int compareStudents(const void *a, const void *b) {
+    Student *studentA = (Student *)a;
+    Student *studentB = (Student *)b;
+    if (studentA->grade < studentB->grade) return -1;
+    if (studentA->grade > studentB->grade) return 1;
+    return 0;
+}
+
+// Function to sort an array of students based on grades
+void sortStudents(Student students[], int size) {
+    qsort(students, size, sizeof(Student), compareStudents);
+}
+
+// Function to input student details
+void inputStudentDetails(Student *s) {
+    printf("Enter student name: ");
+    fgets(s->name, 50, stdin);
+    s->name[strcspn(s->name, "\n")] = 0;  // Remove the newline character
+    printf("Enter student age: ");
+    scanf("%d", &s->age);
+    printf("Enter student grade: ");
+    scanf("%f", &s->grade);
+    getchar();  // To consume any extra newline left by scanf
+}
+
+// Main function to demonstrate functionality
+int main() {
+    printf("Welcome to the C Program with Multiple Functions!\n");
+
+    // Complex number operations
+    Complex c1 = {2.3, 4.5}, c2 = {1.2, 3.4};
+    Complex sum = addComplex(c1, c2);
+    printf("Sum of complex numbers: ");
+    printComplex(sum);
+
+    // Point and triangle operations
+    Point p1 = {1.0, 1.0}, p2 = {4.0, 5.0}, p3 = {7.0, 9.0};
+    printf("Distance between points p1 and p2: %.2f\n", distance(p1, p2));
+    Point mid = midpoint(p1, p2);
+    printf("Midpoint between p1 and p2: (%.2f, %.2f)\n", mid.x, mid.y);
+    printf("Area of triangle formed by points p1, p2, p3: %.2f\n", areaOfTriangle(p1, p2, p3));
+
+    // Array operations
+    int arr[] = {1, 2, 3, 4, 5};
+    printf("Original array: ");
+    printArray(arr, 5);
+    reverseArray(arr, 5);
+    printf("Reversed array: ");
+    printArray(arr, 5);
+
+    // Fibonacci series
+    printf("Fibonacci sequence (10 terms): ");
+    fibonacci(10);
+
+    // Factorial and prime number check
+    int n = 5;
+    printf("Factorial of %d: %lld\n", n, factorial(n));
+    printf("Is %d prime? %d\n", n, isPrime(n));
+
+    // Binary conversion
+    int decimal = 9;
+    printf("Binary of %d: ", decimal);
+    decimalToBinary(decimal);
+
+    // Power function
+    printf("3^4 = %.2f\n", power(3, 4));
+
+    // Student records
+    Student students[3];
+    for (int i = 0; i < 3; i++) {
+        printf("Enter details for student %d:\n", i + 1);
+        inputStudentDetails(&students[i]);
+    }
+
+    printf("Students before sorting by grades:\n");
+    for (int i = 0; i < 3; i++) {
+        printStudent(students[i]);
+    }
+
+    sortStudents(students, 3);
+
+    printf("Students after sorting by grades:\n");
+    for (int i = 0; i < 3; i++) {
+        printStudent(students[i]);
+    }
+
+    return 0;
+}
